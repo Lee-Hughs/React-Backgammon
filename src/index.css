@@ -1,13 +1,323 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+	font-family: cyberSpaceRaceway;
+	src: url('/Cyberspace_Raceway_Front.otf');
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+	margin:0px;
+}
+h2 {
+	margin-top:0px;
+	padding-top:20px;
+	margin-bottom:10px;
+	color:#fee;
+	text-shadow:0 -40px 100px, 0 0 2px, 0 0 1em #44bfff, 0 0 0.5em #44bfff, 0 0 0.1em #44bfff, 0 10px 3px #000;
+	font-size:35px;
+	font-weight:200;
+	letter-spacing:3px;
+	text-align:center;
+	font-family:cyberSpaceRaceway;
+}
+
+h2 span{
+	animation: blink linear infinite 2s;
+}
+h2 span:nth-of-type(2){
+	animation: blink linear infinite 3s;
+}
+#bg {
+	background-image:url('/lofi.jpg');
+	background-image:url('../public/lofi.jpg');
+	height:100vh;
+	width:100%;
+	position:fixed;
+	background-size:cover;
+	background-position:center;
+}
+.game {
+	position:absolute;
+	width:max-content;
+	margin:0;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+}
+
+.board {
+	width:max-content;
+	background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-dark.png");
+	background-color:#5b5c76;
+	margin-bottom:10px;
+	border: 1px solid white;
+	border-radius:3px;
+	box-shadow:0 0 15px #ee44ff;
+}
+
+.stats {
+	background-color:#4c4e5380;
+	border-radius:5px;
+	padding:10px;
+}
+.stats p {
+	font-family:cyberSpaceRaceway;
+	color:white;
+	text-align:left;
+	font-size:12px;
+}
+
+@keyframes blink {
+	78%{
+		color: inherit;
+		text-shadow: inherit;
+	}
+	79% {
+		color: #333;
+	}
+	80% {
+		text-shadow: none;
+	}
+	81% {
+		color:inherit;
+		text-shadow:inherit;
+	}
+	82% {
+		color:#333;
+		text-shadow: none;
+	}
+	83% {
+		color:inherit;
+		text-shadow:inherit;
+	}
+	92% {
+		color: #333;
+		text-shadow:none;
+	}
+	92.5% {
+		color: inherit;
+		text-shadow: inherit;
+	}
+}
+
+@media screen and (min-width: 400px) {
+	/* mobile phones */
+	h2 {
+		font-size:30px;
+	}
+	.stats p {
+		font-size:12px
+	}
+
+}
+
+@media screen and (min-width: 1024px) {
+	/*laptops*/
+	h2 {
+		font-size:40px;
+	}
+	.stats p {
+		font-size:16px
+	}
+}
+@media screen and (min-width: 3840px) {
+	/*4k screens*/
+	h2 {
+		font-size:120px;
+	}
+	.stats p {
+		font-size:48px
+	}
+	
+
+}
+
+/* TESTING CSS */
+#board {
+	display:inline-flex;
+}
+#playingBoard {
+	width:590px;
+	height:480px;
+	background-color:red;
+	position:relative;
+}
+#bar {
+	width:100px;
+	background-color:brown;
+}
+
+.dice {
+	width:100px;
+	height:100px;
+	background-color:blue;
+}
+#leftBin {
+	position:relative;
+	left:15px;
+	top:0px;
+	width:max-content;
+}
+#rightBin {
+	position:relative;
+	left:330px;
+	top:-389px;
+	width:max-content;
+}
+.arrow-down {
+	width:0px;
+	height:0px;
+	border-left:20px solid transparent;
+	border-right:20px solid transparent;
+	border-top: 195px solid green;
+	border-bottom:0px solid;
+	display:inline;
+	float:left;
+}
+.arrow-up {
+	width:0px;
+	height:0px;
+	border-left:20px solid transparent;
+	border-right:20px solid transparent;
+	border-top:0px solid;
+	border-bottom: 195px solid green;
+	display:inline;
+	float:left;
+}
+.leftBin .bottom-row {
+	clear:left;
+}
+.rightBin .top-row {
+	clear:left;
+}
+.rightBin .bottom-row {
+	clear:left;
+}
+.bottom-row {
+	position:relative;
+	top:90px;
+}
+#middleBar {
+	width:30px;
+	height:100%;
+	background-color:black;
+	position:absolute;
+	left:280px;
+	top: 0px;
+}
+.piece {
+	position:absolute;
+	width:30px;
+	height:30px;
+	background-color:brown;
+	border-radius:50%;
+}
+.arrow-down .piece:nth-child(1) {
+	top:0;
+}
+.arrow-down .piece:nth-child(2) {
+	top:30px;
+}
+.arrow-down .piece:nth-child(3) {
+	top:60px;
+}
+.arrow-down .piece:nth-child(4) {
+	top:90px;
+}
+.arrow-down .piece:nth-child(5) {
+	top:120px;
+}
+.arrow-down .piece:nth-child(6) {
+	top:150px;
+}
+/*arrow up*/
+.arrow-up .piece:nth-child(1) {
+	top:360px;
+}
+.arrow-up .piece:nth-child(2) {
+	top:330px;
+}
+.arrow-up .piece:nth-child(3) {
+	top:300px;
+}
+.arrow-up .piece:nth-child(4) {
+	top:270px;
+}
+.arrow-up .piece:nth-child(5) {
+	top:240px;
+}
+.arrow-up .piece:nth-child(6) {
+	top:210px;
+}
+#leftBin .arrow-down:nth-child(1) .piece, #leftBin .arrow-up:nth-child(1) .piece {
+	left:5px;
+}
+#leftBin .arrow-down:nth-child(2) .piece, #leftBin .arrow-up:nth-child(2) .piece {
+	left:45px;
+}
+#leftBin .arrow-down:nth-child(3) .piece, #leftBin .arrow-up:nth-child(3) .piece {
+	left:85px;
+}
+#leftBin .arrow-down:nth-child(4) .piece, #leftBin .arrow-up:nth-child(4) .piece {
+	left:125px;
+}
+#leftBin .arrow-down:nth-child(5) .piece, #leftBin .arrow-up:nth-child(5) .piece {
+	left:165px;
+}
+#leftBin .arrow-down:nth-child(6) .piece, #leftBin .arrow-up:nth-child(6) .piece {
+	left:205px;
+}
+/*Right bin left css*/
+#rightBin .arrow-down:nth-child(1) .piece, #rightBin .arrow-up:nth-child(1) .piece {
+	left:5px;
+}
+#rightBin .arrow-down:nth-child(2) .piece, #rightBin .arrow-up:nth-child(2) .piece {
+	left:45px;
+}
+#rightBin .arrow-down:nth-child(3) .piece, #rightBin .arrow-up:nth-child(3) .piece {
+	left:85px;
+}
+#rightBin .arrow-down:nth-child(4) .piece, #rightBin .arrow-up:nth-child(4) .piece {
+	left:125px;
+}
+#rightBin .arrow-down:nth-child(5) .piece, #rightBin .arrow-up:nth-child(5) .piece {
+	left:165px;
+}
+#rightBin .arrow-down:nth-child(6) .piece, #rightBin .arrow-up:nth-child(6) .piece {
+	left:205px;
+}
+/*Left Bin top css */
+#rightBin .arrow-down .piece:nth-child(1) {
+	top:390px;
+}
+#rightBin .arrow-down .piece:nth-child(2) {
+	top:420px	
+}
+#rightBin .arrow-down .piece:nth-child(3) {
+	top:450px;
+}
+#rightBin .arrow-down .piece:nth-child(4) {
+	top:480px;
+}
+#rightBin .arrow-down .piece:nth-child(5) {
+	top:510px;	
+}
+#rightBin .arrow-down .piece:nth-child(6) {
+	top:540px;	
+}
+#rightBin .arrow-up .piece:nth-child(1) {
+	top:750px;	
+}
+#rightBin .arrow-up .piece:nth-child(2) {
+	top:720px;		
+}
+#rightBin .arrow-up .piece:nth-child(3) {
+	top:690px;	
+}
+#rightBin .arrow-up .piece:nth-child(4) {
+	top:660px;	
+}
+#rightBin .arrow-up .piece:nth-child(5) {
+	top:630px;	
+}
+#rightBin .arrow-up .piece:nth-child(6) {
+	top:600px;	
 }
