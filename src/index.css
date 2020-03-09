@@ -27,7 +27,6 @@ h2 span:nth-of-type(2){
 }
 #bg {
 	background-image:url('/lofi.jpg');
-	background-image:url('../public/lofi.jpg');
 	height:100vh;
 	width:100%;
 	position:fixed;
@@ -210,6 +209,9 @@ h2 span:nth-of-type(2){
 	background-color:brown;
 	border-radius:50%;
 }
+.piece.b {
+	background-color:#fbedcb;
+}
 .arrow-down .piece:nth-child(1) {
 	top:0;
 }
@@ -320,4 +322,10 @@ h2 span:nth-of-type(2){
 }
 #rightBin .arrow-up .piece:nth-child(6) {
 	top:600px;	
+}
+.hiPoint {
+	border-bottom:195px solid #4CAF50;
+}
+.selPoint {
+	border-bottom:195px solid purple;
 }
