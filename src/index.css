@@ -323,9 +323,15 @@ h2 span:nth-of-type(2){
 #rightBin .arrow-up .piece:nth-child(6) {
 	top:600px;	
 }
-.hiPoint {
+.arrow-up.hiPoint {
 	border-bottom:195px solid #4CAF50;
 }
-.selPoint {
+.arrow-up.selPoint {
 	border-bottom:195px solid purple;
+}
+.arrow-down.hiPoint {
+	border-top:195px solid #4CAF50;
+}
+.arrow-down.selPoint {
+	border-top:195px solid purple;
 }
