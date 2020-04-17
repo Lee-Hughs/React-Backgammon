@@ -47,24 +47,189 @@ class Game extends React.Component {
 			winner: null
 		};
 	}
-	handleClick(src) {
+	handleClick(src, callback=this.fetchAi.bind(this)) {
+		console.log(src);
 		//make sure it is your turn
 		if(!this.state.player) {
-			return
+			return;
 		}
 		//if move from has not been selected
 		if(this.state.moveFrom === -1) {
-			if(!this.state.board[src].includes("b")) {
-				return;
-			}
 			//if you have units on the bar
 			if(this.state.bar[0] !== 0) {
 				//move pieces off the bar
-				return
+				if(this.state.hiPoints[src]) {
+					console.log("you clicked on a highlighted point");
+					//move there
+					let newBoard = [];
+					let newBar = this.state.bar.slice();
+					let newMoves = this.state.moves.slice();
+					let newHiPoints = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
+					for(let index = 0; index < 24; index++) {
+						newBoard.push(this.state.board[index].slice());
+					}
+					if(newBoard[src].length < 2 || newBoard[src][0] === "b") {
+						//move there
+						newBoard[src].push("b");
+						newBar[0]--;
+						if(src + 1 === newMoves[0]) {
+							newMoves.shift();
+						}
+						else {
+							newMoves.pop();
+						}
+						if(newBar[0] !== 0) {
+							for(const move of newMoves) {
+								if(newBoard[move-1].length < 2 || newBoard[move-1][0] === "b") {
+									newHiPoints[move-1] = true;
+								}
+							}
+							//todo: check that some thing here is true
+							if(newHiPoints.includes(true) && newMoves.length > 0) {
+								//set new state and continue your turn
+								this.setState((state) => {
+									return {
+										board: newBoard,
+										bar: newBar,
+										moves: newMoves,
+										message: "You rolled " + this.state.dice + "\nYour Moves: " + newMoves,
+										hiPoints: newHiPoints
+									}
+								});
+							}
+							else {
+								this.setState((state) => {
+									return {
+										board: newBoard,
+										bar: newBar,
+										moves: [],
+										player: false,
+										message: "It is the AI's turn now",
+										dice: [],
+										hiPoints: [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]}
+								}, this.fetchAi);
+								//console.log("before fetch Ai, line 110");
+								//callback();
+								return;
+							}
+						}
+						//the bar is now empty
+						else {
+							if(this.hasValidMove(newMoves, newBoard)) {
+								this.setState((state) => {
+									return {
+										board: newBoard,
+										bar: newBar,
+										moves: newMoves,
+										hiPoints: [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]}
+									});
+							}
+							else {
+								this.setState((state) => {
+									return {
+										board: newBoard,
+										bar: newBar,
+										moves: [],
+										player: false,
+										message: "It is now the AI's turn",
+										dice: [],
+										hiPoints: [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]}
+								}, this.fetchAi);
+								//console.log("before fetch ai, line 135");
+								//callback();
+								return;
+							}
+							return;
+						}
+					}
+					//invalid move, return
+					else {
+						return;
+					}
+				}
+				//invalid move, return
+				return;
+			}
+			//bar is empty and you are moving one of your pieces on the board
+			if(!this.state.board[src].includes("b")) {
+				return;
 			}
 			else {
 				//if it is your turn and you selected your piece
-				if(!this.state.player || this.state.board[src][0] !== "a") {
+				//todo: add check to see if that piece can get off the board, if it can, do that
+				if(this.canBoardOff()) {
+					//you can board off from this position
+					if(Math.max(...this.state.moves) + src > 23) {
+						console.log(Math.max(...this.state.moves));
+						let newBoard = [];
+						let newMoves = this.state.moves.slice();
+						for(let index = 0; index < 24; index++) {
+							newBoard.push(this.state.board[index].slice());
+						}
+						//if we need to determine lowest acceptable move to board off
+						if(this.state.moves.length > 1) {
+							//if the lowest move is valid
+							if(Math.min(...newMoves) + src > 23) {
+								let move = Math.min(...newMoves);
+								console.log(move);
+								if(newMoves[0] > newMoves[newMoves.length-1]) {
+									newMoves.pop();
+								}
+								else {
+									newMoves.shift();
+								}
+							}
+							else {
+								let move = Math.max(...newMoves);
+								if(newMoves[0] > newMoves[newMoves.length-1]) {
+									newMoves.shift();
+								}
+								else {
+									newMoves.pop();
+								}
+							}
+							newBoard[src].pop();
+							if(this.hasValidMove(newMoves, newBoard)) {
+								this.setState((state) => {
+									return {
+										board: newBoard,
+										moves: newMoves,
+										message: "You moved a piece off the board, good job!\nMoves left: " + newMoves,
+										hiPoints: [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]}
+									});
+							}
+							else {
+								this.setState((state) => {
+									return {
+										board: newBoard,
+										moves: [],
+										player: false,
+										message: "You moved a piece off the board, good job! You have no more valid moves. It is now the AI's turn.",
+										dice: [],
+										hiPoints: [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]}
+								}, this.fetchAi);
+								//console.log("before fetch ai, line 135");
+								//callback();
+								return;
+							}
+							return;
+						}
+						else {
+							newBoard[src].pop();
+							this.setState((state) => {
+								return {
+									board: newBoard,
+									moves: [],
+									player: false,
+									message: "It is now the AI's turn",
+									dice: [],
+									hiPoints: [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]}
+							}, this.fetchAi);
+						}
+					}
+				}
+				if(this.state.player && this.state.board[src][0] === "b") {
+					console.log("what the fuck");
 					let newSelPoints = this.state.selPoints.slice();
 					newSelPoints[src] = true;
 					let newHiPoints = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
@@ -83,7 +248,9 @@ class Game extends React.Component {
 				console.log(src);
 			}
 		}
+		//you have already selected a piece
 		else {
+			//deselecting the selected piece
 			if(src === this.state.moveFrom) {
 				this.setState((state) => {
 					return {
@@ -108,20 +275,23 @@ class Game extends React.Component {
 						newMoves.pop();
 					}
 					newBoard[src].push(newBoard[this.state.moveFrom].pop());
-					let newMessage = newMoves.length === 0 ? "It is the AI's turn now" : "You Rolled " + this.state.dice + "\nYour Moves: " + newMoves;
-					//todo: add check at end of move to see if more moves exists, if not go to next player
+					let newPlayer = this.hasValidMove(newMoves, newBoard) ? true : false;
+					let newMessage = !newPlayer ? "It is the AI's turn now" : "You Rolled " + this.state.dice + "\nYour Moves: " + newMoves;
+					console.log("New Player: " + newPlayer);
+					console.log("New Message: " + newMessage);
 					this.setState((state) => {
 						return {
 							board: newBoard,
-							player: true,
+							player: newPlayer,
 							moves: newMoves,
 							selPoints: [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
 							hiPoints: [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
 							moveFrom: -1,
 							message: newMessage}
-						});
+						},this.fetchAi);
 					return;
 				}
+				//deselecting selected piece
 				else {
 					this.setState((state) => {
 						return {
@@ -142,12 +312,28 @@ class Game extends React.Component {
 		}
 		const roll =  [Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1];
 		const newMoves = roll[0] === roll[1] ? [roll[0],roll[0],roll[0],roll[0]] : [roll[0], roll[1]];
-		if(this.hasValidMove(newMoves)) {
-			this.setState((state) => {
-				return {dice: roll,
-					moves: newMoves,
-					message: "You Rolled " + roll + "\nYour Moves: " + newMoves}
-			});
+		if(this.hasValidMove(newMoves, this.state.board)) {
+			if(this.state.bar[0] === 0) {
+				this.setState((state) => {
+					return {dice: roll,
+						moves: newMoves,
+						message: "You Rolled " + roll + "\nYour Moves: " + newMoves}
+				});
+			}
+			else {
+				let newHiPoints = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
+				for(const move of newMoves) {
+					if(this.state.board[move - 1].length < 2 || this.state.board[move - 1][0] === "b") {
+						newHiPoints[move-1] = true;
+					}
+				}
+				this.setState((state) => {
+					return {dice: roll,
+						moves: newMoves,
+						message: "You Rolled " + roll + "\nYour Moves: " + newMoves,
+						hiPoints: newHiPoints}
+				});
+			}
 		}
 		else {
 			//todo: set state and send this to next players move
@@ -158,6 +344,28 @@ class Game extends React.Component {
 					message: "You Rolled " + roll + "\nBut you have no valid moves"}
 			});
 		}
+	}
+	fetchAi() {
+		console.log("in fetch ai");
+		console.log(this.state);
+		if(this.state.player) {
+			return;
+		}
+		let api_load = JSON.stringify(this.state);
+		/*
+		fetch('/backgammon_bot/?state=' + api_load)
+		.then(res => res.json())
+		.then((data) => {
+			data = JSON.parse(data['express']);
+			console.log(data);
+		})
+        	.catch(console.log);*/
+		this.setState((state) => {
+			return {player: true,
+				moves: [],
+				dice: [0,0],
+				message: "The AI moved. Now it is your turn"}
+			});
 	}
 	render() {
 		const board = this.state.board;
@@ -178,14 +386,14 @@ class Game extends React.Component {
 			</div>
 		);
 	}
-	hasValidMove(dice) {
+	hasValidMove(dice, board) {
 		//give some available moves (dice) check each point [0,23] and check if it includes "b", if it does then run get valid moves on that position, if the length of that is greater than 0, return true
 		//first check if you have a piece on the bar, if you do, check to see if you can get off the bar first
 		if(this.state.bar[0] === 0) {
 			//increment through all points
 			for(var index = 0; index < 24; index++) {
 				//check if you have a piece on that point
-				if(this.state.board[index].includes("b")) {
+				if(board[index].includes("b")) {
 					//iterate through dice
 					for(const die of dice) {
 						if(index + die > 23) {
@@ -194,7 +402,7 @@ class Game extends React.Component {
 							}
 							continue;
 						}
-						if(this.state.board[index + die].length < 2 || this.state.board[index + die][1] === "b") {
+						if(board[index + die].length < 2 || board[index + die][1] === "b") {
 							return true;
 						}
 					}
@@ -203,7 +411,7 @@ class Game extends React.Component {
 		}
 		else {
 			for(const die of dice) {
-				if(this.state.board[die].length < 2 || this.state.board[die][1] === "b") {
+				if(board[die].length < 2 || board[die][1] === "b") {
 					return true;
 				}
 			}
@@ -220,16 +428,22 @@ class Game extends React.Component {
 		if(this.canBoardOff()) {
 			for(const move of this.state.moves) {
 				//todo: add boarding off moves and regular moves
+				if(move + src > 23) {
+					legalMoves.push(24);
+				}
+				else {
+					if(!(this.state.board[move + src].length > 1 && this.state.board[move + src][1] === "a")) {
+						legalMoves.push(move + src);
+					}
+				}
 			}	
 		}
 		else {
 			for(const move of this.state.moves) {
 				//check move
-				console.log(move);
 				if(move + src > 23) {
 					continue;
 				}
-				console.log(move + src);
 				if(!(this.state.board[move + src].length > 1 && this.state.board[move + src][1] === "a")) {
 					legalMoves.push(move + src);
 				}
