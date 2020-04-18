@@ -7,11 +7,11 @@ class Game extends React.Component {
 		super(props);
 		let board = [
 				["b", "b"],
-				["a"],
-				["a"],
-				["a"],
-				["a"],
-				["a"],
+				[],
+				[],
+				[],
+				[],
+				["a","a","a","a","a"],
 				[],
 				["a","a","a"],
 				[],
@@ -29,7 +29,7 @@ class Game extends React.Component {
 				[],
 				[],
 				[],
-				["a","a"],
+				["a","a"]
 			];
 		let bar = [0,0];
 		let dice = [0,0];
