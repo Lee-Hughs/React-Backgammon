@@ -352,20 +352,20 @@ class Game extends React.Component {
 			return;
 		}
 		let api_load = JSON.stringify(this.state);
-		/*
 		fetch('/backgammon_bot/?state=' + api_load)
 		.then(res => res.json())
 		.then((data) => {
-			data = JSON.parse(data['express']);
 			console.log(data);
+			this.setState((state) => {
+				return {player: true,
+					board: data["board"],
+					bar: data["bar"],
+					moves: [],
+					dice: [0,0],
+					message: "The AI moved. Now it is your turn"}
+				});
 		})
-        	.catch(console.log);*/
-		this.setState((state) => {
-			return {player: true,
-				moves: [],
-				dice: [0,0],
-				message: "The AI moved. Now it is your turn"}
-			});
+        	.catch(console.log);
 	}
 	render() {
 		const board = this.state.board;
