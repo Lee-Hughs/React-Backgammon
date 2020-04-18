@@ -7,11 +7,11 @@ class Game extends React.Component {
 		super(props);
 		let board = [
 				["b", "b"],
-				[],
-				[],
-				[],
-				[],
-				["a","a","a","a","a"],
+				["a"],
+				["a"],
+				["a"],
+				["a"],
+				["a"],
 				[],
 				["a","a","a"],
 				[],
@@ -72,6 +72,10 @@ class Game extends React.Component {
 						//move there
 						newBoard[src].push("b");
 						newBar[0]--;
+						if(newBoard[src][0] === "a") {
+							newBoard[src].shift();
+							newBar[1]++;
+						}
 						if(src + 1 === newMoves[0]) {
 							newMoves.shift();
 						}
@@ -229,7 +233,6 @@ class Game extends React.Component {
 					}
 				}
 				if(this.state.player && this.state.board[src][0] === "b") {
-					console.log("what the fuck");
 					let newSelPoints = this.state.selPoints.slice();
 					newSelPoints[src] = true;
 					let newHiPoints = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
@@ -264,6 +267,7 @@ class Game extends React.Component {
 				if(this.state.hiPoints[src]) {
 					//execute move
 					let newBoard = [];
+					let newBar = this.state.bar.slice();
 					for(let index = 0; index < 24; index++) {
 						newBoard.push(this.state.board[index].slice());
 					}
@@ -275,6 +279,10 @@ class Game extends React.Component {
 						newMoves.pop();
 					}
 					newBoard[src].push(newBoard[this.state.moveFrom].pop());
+					if(newBoard[src][0] == "a") {
+						newBoard[src].shift();
+						newBar[1]++;
+					}
 					let newPlayer = this.hasValidMove(newMoves, newBoard) ? true : false;
 					let newMessage = !newPlayer ? "It is the AI's turn now" : "You Rolled " + this.state.dice + "\nYour Moves: " + newMoves;
 					console.log("New Player: " + newPlayer);
@@ -282,6 +290,7 @@ class Game extends React.Component {
 					this.setState((state) => {
 						return {
 							board: newBoard,
+							bar: newBar,
 							player: newPlayer,
 							moves: newMoves,
 							selPoints: [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -359,7 +368,7 @@ class Game extends React.Component {
 			this.setState((state) => {
 				return {player: true,
 					board: data["board"],
-					bar: data["bar"],
+					bar: data["bar"].reverse(),
 					moves: [],
 					dice: [0,0],
 					message: "The AI moved. Now it is your turn"}
