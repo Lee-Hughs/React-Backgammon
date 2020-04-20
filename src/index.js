@@ -548,8 +548,8 @@ class Board extends React.Component {
 function DiceArea(props) {
 	return (
 		<div id="diceArea">
-			<div className="dice"><p>{props.dice[0]}</p></div>
-			<div className="dice"><p>{props.dice[1]}</p></div>
+			<div className="dice"><img src={'/dice_' + props.dice[0] + '.png'} alt={props.dice[0]}/></div>
+			<div className="dice"><img src={'/dice_' + props.dice[1] + '.png'} alt={props.dice[1]}/></div>
 			<button type="button" id="rollButton" onClick={() => props.onClick()}>Roll Dice</button>
 		</div>
 	);

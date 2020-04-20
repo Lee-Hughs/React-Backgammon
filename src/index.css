@@ -132,22 +132,47 @@ h2 span:nth-of-type(2){
 /* TESTING CSS */
 #board {
 	display:inline-flex;
+	border:2px solid white;
+	box-shadow: 0px 0px 20px #b40acb;
 }
 #playingBoard {
 	width:590px;
 	height:480px;
-	background-color:red;
+	background-color:#06145645;
 	position:relative;
 }
 #bar {
 	width:100px;
-	background-color:brown;
+	background-color:#00000000;
+	color:#fee;
+	font-family:cyberSpaceRaceway;
+	border-right:2px solid white;
+	box-shadow:0px 0px 10px #b40acb;
+	padding:5px;
 }
-
+#diceArea {
+	border-left:2px solid white;
+	box-shadow:0px 0px 10px #b40acb;
+}
+#rollButton {
+	width:80px;
+	margin-left:10px;
+	min-height:60px;
+	margin-top:20px;
+	border-radius:10%;
+	color:#fee;
+	background-color:#00000000;
+	box-shadow:0px 0px 5px #b40acb;
+	font-family:cyberSpaceRaceway;
+	text-shadow:0 -40px 100px, 0 0 2px, 0 0 1em #44bfff, 0 0 0.5em #44bfff, 0 0 0.1em #44bfff, 0 10px 3px #000;
+}
 .dice {
 	width:100px;
 	height:100px;
-	background-color:blue;
+}
+.dice img {
+	width:100px;
+	height:100px;
 }
 #leftBin {
 	position:relative;
@@ -197,131 +222,134 @@ h2 span:nth-of-type(2){
 #middleBar {
 	width:30px;
 	height:100%;
-	background-color:black;
+	background-color:#ffeeeea8;
 	position:absolute;
 	left:280px;
 	top: 0px;
+	box-shadow:0px 0px 20px #b40acb;
 }
 .piece {
 	position:absolute;
 	width:30px;
 	height:30px;
-	background-color:brown;
+	background-color:#b40acb;
+	border:2px inset #fee;
 	border-radius:50%;
 }
 .piece.b {
-	background-color:#fbedcb;
+	background-color:#a6c7dd;
 }
+
 .arrow-down .piece:nth-child(1) {
 	top:0;
 }
 .arrow-down .piece:nth-child(2) {
-	top:30px;
+	top:34px;
 }
 .arrow-down .piece:nth-child(3) {
-	top:60px;
+	top:68px;
 }
 .arrow-down .piece:nth-child(4) {
-	top:90px;
+	top:102px;
 }
 .arrow-down .piece:nth-child(5) {
-	top:120px;
+	top:136px;
 }
 .arrow-down .piece:nth-child(6) {
-	top:150px;
+	top:170px;
 }
 /*arrow up*/
 .arrow-up .piece:nth-child(1) {
-	top:360px;
+	top:356px;
 }
 .arrow-up .piece:nth-child(2) {
-	top:330px;
+	top:322px;
 }
 .arrow-up .piece:nth-child(3) {
-	top:300px;
+	top:288px;
 }
 .arrow-up .piece:nth-child(4) {
-	top:270px;
+	top:254px;
 }
 .arrow-up .piece:nth-child(5) {
-	top:240px;
+	top:220px;
 }
 .arrow-up .piece:nth-child(6) {
-	top:210px;
+	top:186px;
 }
 #leftBin .arrow-down:nth-child(1) .piece, #leftBin .arrow-up:nth-child(1) .piece {
-	left:5px;
+	left:3px;
 }
 #leftBin .arrow-down:nth-child(2) .piece, #leftBin .arrow-up:nth-child(2) .piece {
-	left:45px;
+	left:44px;
 }
 #leftBin .arrow-down:nth-child(3) .piece, #leftBin .arrow-up:nth-child(3) .piece {
-	left:85px;
+	left:84px;
 }
 #leftBin .arrow-down:nth-child(4) .piece, #leftBin .arrow-up:nth-child(4) .piece {
-	left:125px;
+	left:124px;
 }
 #leftBin .arrow-down:nth-child(5) .piece, #leftBin .arrow-up:nth-child(5) .piece {
-	left:165px;
+	left:164px;
 }
 #leftBin .arrow-down:nth-child(6) .piece, #leftBin .arrow-up:nth-child(6) .piece {
-	left:205px;
+	left:204px;
 }
 /*Right bin left css*/
 #rightBin .arrow-down:nth-child(1) .piece, #rightBin .arrow-up:nth-child(1) .piece {
-	left:5px;
+	left:3px;
 }
 #rightBin .arrow-down:nth-child(2) .piece, #rightBin .arrow-up:nth-child(2) .piece {
-	left:45px;
+	left:44px;
 }
 #rightBin .arrow-down:nth-child(3) .piece, #rightBin .arrow-up:nth-child(3) .piece {
-	left:85px;
+	left:84px;
 }
 #rightBin .arrow-down:nth-child(4) .piece, #rightBin .arrow-up:nth-child(4) .piece {
-	left:125px;
+	left:124px;
 }
 #rightBin .arrow-down:nth-child(5) .piece, #rightBin .arrow-up:nth-child(5) .piece {
-	left:165px;
+	left:164px;
 }
 #rightBin .arrow-down:nth-child(6) .piece, #rightBin .arrow-up:nth-child(6) .piece {
-	left:205px;
+	left:204px;
 }
 /*Left Bin top css */
 #rightBin .arrow-down .piece:nth-child(1) {
 	top:390px;
 }
 #rightBin .arrow-down .piece:nth-child(2) {
-	top:420px	
+	top:424px	
 }
 #rightBin .arrow-down .piece:nth-child(3) {
-	top:450px;
+	top:458px;
 }
 #rightBin .arrow-down .piece:nth-child(4) {
-	top:480px;
+	top:492px;
 }
 #rightBin .arrow-down .piece:nth-child(5) {
-	top:510px;	
+	top:526px;	
 }
 #rightBin .arrow-down .piece:nth-child(6) {
-	top:540px;	
+	top:560px;	
 }
 #rightBin .arrow-up .piece:nth-child(1) {
-	top:750px;	
+	top:746px;	
 }
 #rightBin .arrow-up .piece:nth-child(2) {
-	top:720px;		
+	top:712px;		
 }
 #rightBin .arrow-up .piece:nth-child(3) {
-	top:690px;	
+	top:678px;	
 }
 #rightBin .arrow-up .piece:nth-child(4) {
-	top:660px;	
+	top:644px;	
 }
 #rightBin .arrow-up .piece:nth-child(5) {
-	top:630px;	
+	top:610px;	
 }
 #rightBin .arrow-up .piece:nth-child(6) {
-	top:600px;	
+	top:576px;	
 }
 .arrow-up.hiPoint {
 	border-bottom:195px solid #4CAF50;
@@ -334,4 +362,18 @@ h2 span:nth-of-type(2){
 }
 .arrow-down.selPoint {
 	border-top:195px solid purple;
+}
+
+.arrow-down.even {
+	border-top:195px solid #b40acb97;	
+}
+.arrow-down.odd {
+	border-top:195px solid #44bfff97;
+}
+
+.arrow-up.even {
+	border-bottom:195px solid #b40acb97;	
+}
+.arrow-up.odd {
+	border-bottom:195px solid #44bfff97;
 }
