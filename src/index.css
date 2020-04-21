@@ -351,18 +351,6 @@ h2 span:nth-of-type(2){
 #rightBin .arrow-up .piece:nth-child(6) {
 	top:576px;	
 }
-.arrow-up.hiPoint {
-	border-bottom:195px solid #4CAF50;
-}
-.arrow-up.selPoint {
-	border-bottom:195px solid purple;
-}
-.arrow-down.hiPoint {
-	border-top:195px solid #4CAF50;
-}
-.arrow-down.selPoint {
-	border-top:195px solid purple;
-}
 
 .arrow-down.even {
 	border-top:195px solid #b40acb97;	
@@ -377,3 +365,20 @@ h2 span:nth-of-type(2){
 .arrow-up.odd {
 	border-bottom:195px solid #44bfff97;
 }
+
+
+.arrow-up.even.selPoint, .arrow-up.even.hiPoint {
+	border-bottom:195px solid #c658ff;
+}
+.arrow-up.odd.selPoint, .arrow-up.odd.hiPoint {
+	border-bottom:195px solid #58c9ff;
+}
+
+.arrow-down.even.selPoint, .arrow-down.even.hiPoint {
+	border-top:195px solid #c658ff;
+}
+.arrow-down.odd.selPoint, .arrow-down.odd.hiPoint {
+	border-top:195px solid #58c9ff;
+}
+
+
